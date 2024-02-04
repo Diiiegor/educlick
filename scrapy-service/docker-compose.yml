@@ -1,0 +1,9 @@
+version: '3'
+services:
+  scrapers:
+    restart: on-failure
+    build:
+      context: ./
+      dockerfile: docker/scrapers/Dockerfile
+    volumes:
+      - ./:/var
