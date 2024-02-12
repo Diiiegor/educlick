@@ -10,7 +10,7 @@ export default class ScraperSena implements IScraper {
 
 
     async fetchCourses(): Promise<Course[]> {
-        this.browser = await puppeteer.launch()
+        this.browser = await puppeteer.launch({headless: true, args:['--no-sandbox']})
         this.page    = await this.browser.newPage()
         let results: Course[] = []
 

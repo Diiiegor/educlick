@@ -1,0 +1,12 @@
+version: '3'
+services:
+  scrapers:
+    restart: on-failure
+    cap_add:
+      - SYS_ADMIN
+    build:
+      context: ./
+      dockerfile: docker/scrapy-service/Dockerfile
+    volumes:
+      - ./scrapy-service/:/app
+      - ./docker/scrapy-service/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
