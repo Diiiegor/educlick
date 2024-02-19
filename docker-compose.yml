@@ -1,9 +1,7 @@
 version: '3'
 services:
   scrapers:
-    restart: on-failure
-    cap_add:
-      - SYS_ADMIN
+   # restart: on-failure
     build:
       context: ./
       dockerfile: docker/scrapy-service/Dockerfile

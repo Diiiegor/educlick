@@ -1,7 +1,8 @@
 FROM --platform=linux/amd64 node:18
 
 COPY ./scrapy-service /app
-COPY ./docker/scrapy-service/entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+COPY ./docker/scrapy-service/cronjob /etc/cron.d/cronjob
+COPY ./docker/scrapy-service/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN apt-get update \
     && apt-get install -y wget gnupg cron supervisor \
@@ -15,9 +16,6 @@ RUN apt-get update \
     && groupadd -r pptruser && useradd -rm -g pptruser -G audio,video pptruser
 
 WORKDIR /app
-RUN npm install
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
-
-#ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-RUN npm run dev
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+#CMD ["cron", "-f"]
